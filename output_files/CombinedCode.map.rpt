@@ -1,0 +1,712 @@
+Analysis & Synthesis report for CombinedCode
+Tue Jan 05 19:04:27 2021
+Quartus Prime Version 16.0.0 Build 211 04/27/2016 SJ Lite Edition
+
+
+---------------------
+; Table of Contents ;
+---------------------
+  1. Legal Notice
+  2. Analysis & Synthesis Summary
+  3. Analysis & Synthesis Settings
+  4. Parallel Compilation
+  5. Analysis & Synthesis Source Files Read
+  6. Analysis & Synthesis Resource Usage Summary
+  7. Analysis & Synthesis Resource Utilization by Entity
+  8. Analysis & Synthesis DSP Block Usage Summary
+  9. State Machine - |CombinedCode|HeartDisease:gm1|StateMachineControl:comb_5|state
+ 10. User-Specified and Inferred Latches
+ 11. Registers Removed During Synthesis
+ 12. General Register Statistics
+ 13. Inverted Register Statistics
+ 14. Multiplexer Restructuring Statistics (Restructuring Performed)
+ 15. Parameter Settings for User Entity Instance: HeartDisease:gm1|StateMachineControl:comb_5
+ 16. Parameter Settings for Inferred Entity Instance: HeartDisease:gm1|StateMachineControl:comb_5|lpm_divide:Mod0
+ 17. Parameter Settings for Inferred Entity Instance: HeartDisease:gm1|StateMachineControl:comb_5|lpm_divide:Mod1
+ 18. Port Connectivity Checks: "MoleBuster:gm2|clk_divide:spn"
+ 19. Port Connectivity Checks: "MoleBuster:gm2|clk_divide:dot"
+ 20. Port Connectivity Checks: "MoleBuster:gm2|clk_divide:div"
+ 21. Post-Synthesis Netlist Statistics for Top Partition
+ 22. Elapsed Time Per Partition
+ 23. Analysis & Synthesis Messages
+ 24. Analysis & Synthesis Suppressed Messages
+
+
+
+----------------
+; Legal Notice ;
+----------------
+Copyright (C) 1991-2016 Altera Corporation. All rights reserved.
+Your use of Altera Corporation's design tools, logic functions 
+and other software and tools, and its AMPP partner logic 
+functions, and any output files from any of the foregoing 
+(including device programming or simulation files), and any 
+associated documentation or information are expressly subject 
+to the terms and conditions of the Altera Program License 
+Subscription Agreement, the Altera Quartus Prime License Agreement,
+the Altera MegaCore Function License Agreement, or other 
+applicable license agreement, including, without limitation, 
+that your use is for the sole purpose of programming logic 
+devices manufactured by Altera and sold by Altera or its 
+authorized distributors.  Please refer to the applicable 
+agreement for further details.
+
+
+
++-------------------------------------------------------------------------------+
+; Analysis & Synthesis Summary                                                  ;
++---------------------------------+---------------------------------------------+
+; Analysis & Synthesis Status     ; Successful - Tue Jan 05 19:04:27 2021       ;
+; Quartus Prime Version           ; 16.0.0 Build 211 04/27/2016 SJ Lite Edition ;
+; Revision Name                   ; CombinedCode                                ;
+; Top-level Entity Name           ; CombinedCode                                ;
+; Family                          ; Cyclone V                                   ;
+; Logic utilization (in ALMs)     ; N/A                                         ;
+; Total registers                 ; 849                                         ;
+; Total pins                      ; 46                                          ;
+; Total virtual pins              ; 0                                           ;
+; Total block memory bits         ; 0                                           ;
+; Total DSP Blocks                ; 1                                           ;
+; Total HSSI RX PCSs              ; 0                                           ;
+; Total HSSI PMA RX Deserializers ; 0                                           ;
+; Total HSSI TX PCSs              ; 0                                           ;
+; Total HSSI PMA TX Serializers   ; 0                                           ;
+; Total PLLs                      ; 0                                           ;
+; Total DLLs                      ; 0                                           ;
++---------------------------------+---------------------------------------------+
+
+
++---------------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis Settings                                                                                             ;
++---------------------------------------------------------------------------------+--------------------+--------------------+
+; Option                                                                          ; Setting            ; Default Value      ;
++---------------------------------------------------------------------------------+--------------------+--------------------+
+; Device                                                                          ; 5CEFA4F23C7        ;                    ;
+; Top-level entity name                                                           ; CombinedCode       ; CombinedCode       ;
+; Family name                                                                     ; Cyclone V          ; Cyclone V          ;
+; Use smart compilation                                                           ; Off                ; Off                ;
+; Enable parallel Assembler and TimeQuest Timing Analyzer during compilation      ; On                 ; On                 ;
+; Enable compact report table                                                     ; Off                ; Off                ;
+; Restructure Multiplexers                                                        ; Auto               ; Auto               ;
+; MLAB Add Timing Constraints For Mixed-Port Feed-Through Mode Setting Don't Care ; Off                ; Off                ;
+; Create Debugging Nodes for IP Cores                                             ; Off                ; Off                ;
+; Preserve fewer node names                                                       ; On                 ; On                 ;
+; Disable OpenCore Plus hardware evaluation                                       ; Off                ; Off                ;
+; Verilog Version                                                                 ; Verilog_2001       ; Verilog_2001       ;
+; VHDL Version                                                                    ; VHDL_1993          ; VHDL_1993          ;
+; State Machine Processing                                                        ; Auto               ; Auto               ;
+; Safe State Machine                                                              ; Off                ; Off                ;
+; Extract Verilog State Machines                                                  ; On                 ; On                 ;
+; Extract VHDL State Machines                                                     ; On                 ; On                 ;
+; Ignore Verilog initial constructs                                               ; Off                ; Off                ;
+; Iteration limit for constant Verilog loops                                      ; 5000               ; 5000               ;
+; Iteration limit for non-constant Verilog loops                                  ; 250                ; 250                ;
+; Add Pass-Through Logic to Inferred RAMs                                         ; On                 ; On                 ;
+; Infer RAMs from Raw Logic                                                       ; On                 ; On                 ;
+; Parallel Synthesis                                                              ; On                 ; On                 ;
+; DSP Block Balancing                                                             ; Auto               ; Auto               ;
+; NOT Gate Push-Back                                                              ; On                 ; On                 ;
+; Power-Up Don't Care                                                             ; On                 ; On                 ;
+; Remove Redundant Logic Cells                                                    ; Off                ; Off                ;
+; Remove Duplicate Registers                                                      ; On                 ; On                 ;
+; Ignore CARRY Buffers                                                            ; Off                ; Off                ;
+; Ignore CASCADE Buffers                                                          ; Off                ; Off                ;
+; Ignore GLOBAL Buffers                                                           ; Off                ; Off                ;
+; Ignore ROW GLOBAL Buffers                                                       ; Off                ; Off                ;
+; Ignore LCELL Buffers                                                            ; Off                ; Off                ;
+; Ignore SOFT Buffers                                                             ; On                 ; On                 ;
+; Limit AHDL Integers to 32 Bits                                                  ; Off                ; Off                ;
+; Optimization Technique                                                          ; Balanced           ; Balanced           ;
+; Carry Chain Length                                                              ; 70                 ; 70                 ;
+; Auto Carry Chains                                                               ; On                 ; On                 ;
+; Auto Open-Drain Pins                                                            ; On                 ; On                 ;
+; Perform WYSIWYG Primitive Resynthesis                                           ; Off                ; Off                ;
+; Auto ROM Replacement                                                            ; On                 ; On                 ;
+; Auto RAM Replacement                                                            ; On                 ; On                 ;
+; Auto DSP Block Replacement                                                      ; On                 ; On                 ;
+; Auto Shift Register Replacement                                                 ; Auto               ; Auto               ;
+; Allow Shift Register Merging across Hierarchies                                 ; Auto               ; Auto               ;
+; Auto Clock Enable Replacement                                                   ; On                 ; On                 ;
+; Strict RAM Replacement                                                          ; Off                ; Off                ;
+; Allow Synchronous Control Signals                                               ; On                 ; On                 ;
+; Force Use of Synchronous Clear Signals                                          ; Off                ; Off                ;
+; Auto Resource Sharing                                                           ; Off                ; Off                ;
+; Allow Any RAM Size For Recognition                                              ; Off                ; Off                ;
+; Allow Any ROM Size For Recognition                                              ; Off                ; Off                ;
+; Allow Any Shift Register Size For Recognition                                   ; Off                ; Off                ;
+; Use LogicLock Constraints during Resource Balancing                             ; On                 ; On                 ;
+; Ignore translate_off and synthesis_off directives                               ; Off                ; Off                ;
+; Timing-Driven Synthesis                                                         ; On                 ; On                 ;
+; Report Parameter Settings                                                       ; On                 ; On                 ;
+; Report Source Assignments                                                       ; On                 ; On                 ;
+; Report Connectivity Checks                                                      ; On                 ; On                 ;
+; Ignore Maximum Fan-Out Assignments                                              ; Off                ; Off                ;
+; Synchronization Register Chain Length                                           ; 3                  ; 3                  ;
+; PowerPlay Power Optimization During Synthesis                                   ; Normal compilation ; Normal compilation ;
+; HDL message level                                                               ; Level2             ; Level2             ;
+; Suppress Register Optimization Related Messages                                 ; Off                ; Off                ;
+; Number of Removed Registers Reported in Synthesis Report                        ; 5000               ; 5000               ;
+; Number of Swept Nodes Reported in Synthesis Report                              ; 5000               ; 5000               ;
+; Number of Inverted Registers Reported in Synthesis Report                       ; 100                ; 100                ;
+; Clock MUX Protection                                                            ; On                 ; On                 ;
+; Auto Gated Clock Conversion                                                     ; Off                ; Off                ;
+; Block Design Naming                                                             ; Auto               ; Auto               ;
+; SDC constraint protection                                                       ; Off                ; Off                ;
+; Synthesis Effort                                                                ; Auto               ; Auto               ;
+; Shift Register Replacement - Allow Asynchronous Clear Signal                    ; On                 ; On                 ;
+; Pre-Mapping Resynthesis Optimization                                            ; Off                ; Off                ;
+; Analysis & Synthesis Message Level                                              ; Medium             ; Medium             ;
+; Disable Register Merging Across Hierarchies                                     ; Auto               ; Auto               ;
+; Resource Aware Inference For Block RAM                                          ; On                 ; On                 ;
+; Synthesis Seed                                                                  ; 1                  ; 1                  ;
+; Automatic Parallel Synthesis                                                    ; On                 ; On                 ;
+; Partial Reconfiguration Bitstream ID                                            ; Off                ; Off                ;
++---------------------------------------------------------------------------------+--------------------+--------------------+
+
+
++------------------------------------------+
+; Parallel Compilation                     ;
++----------------------------+-------------+
+; Processors                 ; Number      ;
++----------------------------+-------------+
+; Number detected on machine ; 8           ;
+; Maximum allowed            ; 4           ;
+;                            ;             ;
+; Average used               ; 1.00        ;
+; Maximum used               ; 4           ;
+;                            ;             ;
+; Usage by Processor         ; % Time Used ;
+;     Processor 1            ; 100.0%      ;
+;     Processor 2            ;   0.0%      ;
+;     Processor 3            ;   0.0%      ;
+;     Processor 4            ;   0.0%      ;
++----------------------------+-------------+
+
+
++-----------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis Source Files Read                                                                                                                                ;
++----------------------------------+-----------------+------------------------------+-------------------------------------------------------------------------+---------+
+; File Name with User-Entered Path ; Used in Netlist ; File Type                    ; File Name with Absolute Path                                            ; Library ;
++----------------------------------+-----------------+------------------------------+-------------------------------------------------------------------------+---------+
+; CombinedCode.v                   ; yes             ; User Verilog HDL File        ; D:/NCKU/4th-1/digital_sys_exp/combine/CombinedCode.v                    ;         ;
+; HeartDisease.v                   ; yes             ; Auto-Found Verilog HDL File  ; D:/NCKU/4th-1/digital_sys_exp/combine/HeartDisease.v                    ;         ;
+; molebuster.v                     ; yes             ; Auto-Found Verilog HDL File  ; D:/NCKU/4th-1/digital_sys_exp/combine/molebuster.v                      ;         ;
+; lpm_divide.tdf                   ; yes             ; Megafunction                 ; c:/altera_lite/16.0/quartus/libraries/megafunctions/lpm_divide.tdf      ;         ;
+; abs_divider.inc                  ; yes             ; Megafunction                 ; c:/altera_lite/16.0/quartus/libraries/megafunctions/abs_divider.inc     ;         ;
+; sign_div_unsign.inc              ; yes             ; Megafunction                 ; c:/altera_lite/16.0/quartus/libraries/megafunctions/sign_div_unsign.inc ;         ;
+; aglobal160.inc                   ; yes             ; Megafunction                 ; c:/altera_lite/16.0/quartus/libraries/megafunctions/aglobal160.inc      ;         ;
+; db/lpm_divide_42m.tdf            ; yes             ; Auto-Generated Megafunction  ; D:/NCKU/4th-1/digital_sys_exp/combine/db/lpm_divide_42m.tdf             ;         ;
+; db/sign_div_unsign_7kh.tdf       ; yes             ; Auto-Generated Megafunction  ; D:/NCKU/4th-1/digital_sys_exp/combine/db/sign_div_unsign_7kh.tdf        ;         ;
+; db/alt_u_div_kse.tdf             ; yes             ; Auto-Generated Megafunction  ; D:/NCKU/4th-1/digital_sys_exp/combine/db/alt_u_div_kse.tdf              ;         ;
++----------------------------------+-----------------+------------------------------+-------------------------------------------------------------------------+---------+
+
+
++-------------------------------------------------------------------------------------+
+; Analysis & Synthesis Resource Usage Summary                                         ;
++---------------------------------------------+---------------------------------------+
+; Resource                                    ; Usage                                 ;
++---------------------------------------------+---------------------------------------+
+; Estimate of Logic utilization (ALMs needed) ; 723                                   ;
+;                                             ;                                       ;
+; Combinational ALUT usage for logic          ; 1211                                  ;
+;     -- 7 input functions                    ; 2                                     ;
+;     -- 6 input functions                    ; 228                                   ;
+;     -- 5 input functions                    ; 40                                    ;
+;     -- 4 input functions                    ; 56                                    ;
+;     -- <=3 input functions                  ; 885                                   ;
+;                                             ;                                       ;
+; Dedicated logic registers                   ; 849                                   ;
+;                                             ;                                       ;
+; I/O pins                                    ; 46                                    ;
+;                                             ;                                       ;
+; Total DSP Blocks                            ; 1                                     ;
+;                                             ;                                       ;
+; Maximum fan-out node                        ; MoleBuster:gm2|clk_divide:div|div_clk ;
+; Maximum fan-out                             ; 549                                   ;
+; Total fan-out                               ; 6904                                  ;
+; Average fan-out                             ; 3.21                                  ;
++---------------------------------------------+---------------------------------------+
+
+
++-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis Resource Utilization by Entity                                                                                                                                                                                                                                                                                     ;
++----------------------------------------------+-------------------+--------------+-------------------+------------+------+--------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------+---------------------+--------------+
+; Compilation Hierarchy Node                   ; LC Combinationals ; LC Registers ; Block Memory Bits ; DSP Blocks ; Pins ; Virtual Pins ; Full Hierarchy Name                                                                                                                                       ; Entity Name         ; Library Name ;
++----------------------------------------------+-------------------+--------------+-------------------+------------+------+--------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------+---------------------+--------------+
+; |CombinedCode                                ; 1211 (21)         ; 849 (0)      ; 0                 ; 1          ; 46   ; 0            ; |CombinedCode                                                                                                                                             ; CombinedCode        ; work         ;
+;    |HeartDisease:gm1|                        ; 198 (0)           ; 138 (0)      ; 0                 ; 0          ; 0    ; 0            ; |CombinedCode|HeartDisease:gm1                                                                                                                            ; HeartDisease        ; work         ;
+;       |ButtonControl:button1|                ; 33 (33)           ; 33 (33)      ; 0                 ; 0          ; 0    ; 0            ; |CombinedCode|HeartDisease:gm1|ButtonControl:button1                                                                                                      ; ButtonControl       ; work         ;
+;       |ButtonControl:button2|                ; 9 (9)             ; 1 (1)        ; 0                 ; 0          ; 0    ; 0            ; |CombinedCode|HeartDisease:gm1|ButtonControl:button2                                                                                                      ; ButtonControl       ; work         ;
+;       |ClockDivDot:comb_4|                   ; 40 (40)           ; 33 (33)      ; 0                 ; 0          ; 0    ; 0            ; |CombinedCode|HeartDisease:gm1|ClockDivDot:comb_4                                                                                                         ; ClockDivDot         ; work         ;
+;       |ClockDividerSeven:comb_3|             ; 40 (40)           ; 33 (33)      ; 0                 ; 0          ; 0    ; 0            ; |CombinedCode|HeartDisease:gm1|ClockDividerSeven:comb_3                                                                                                   ; ClockDividerSeven   ; work         ;
+;       |DotMatrixDisplay:dot|                 ; 37 (37)           ; 22 (22)      ; 0                 ; 0          ; 0    ; 0            ; |CombinedCode|HeartDisease:gm1|DotMatrixDisplay:dot                                                                                                       ; DotMatrixDisplay    ; work         ;
+;       |StateMachineControl:comb_5|           ; 39 (24)           ; 16 (16)      ; 0                 ; 0          ; 0    ; 0            ; |CombinedCode|HeartDisease:gm1|StateMachineControl:comb_5                                                                                                 ; StateMachineControl ; work         ;
+;          |lpm_divide:Mod0|                   ; 8 (0)             ; 0 (0)        ; 0                 ; 0          ; 0    ; 0            ; |CombinedCode|HeartDisease:gm1|StateMachineControl:comb_5|lpm_divide:Mod0                                                                                 ; lpm_divide          ; work         ;
+;             |lpm_divide_42m:auto_generated|  ; 8 (0)             ; 0 (0)        ; 0                 ; 0          ; 0    ; 0            ; |CombinedCode|HeartDisease:gm1|StateMachineControl:comb_5|lpm_divide:Mod0|lpm_divide_42m:auto_generated                                                   ; lpm_divide_42m      ; work         ;
+;                |sign_div_unsign_7kh:divider| ; 8 (0)             ; 0 (0)        ; 0                 ; 0          ; 0    ; 0            ; |CombinedCode|HeartDisease:gm1|StateMachineControl:comb_5|lpm_divide:Mod0|lpm_divide_42m:auto_generated|sign_div_unsign_7kh:divider                       ; sign_div_unsign_7kh ; work         ;
+;                   |alt_u_div_kse:divider|    ; 8 (8)             ; 0 (0)        ; 0                 ; 0          ; 0    ; 0            ; |CombinedCode|HeartDisease:gm1|StateMachineControl:comb_5|lpm_divide:Mod0|lpm_divide_42m:auto_generated|sign_div_unsign_7kh:divider|alt_u_div_kse:divider ; alt_u_div_kse       ; work         ;
+;          |lpm_divide:Mod1|                   ; 7 (0)             ; 0 (0)        ; 0                 ; 0          ; 0    ; 0            ; |CombinedCode|HeartDisease:gm1|StateMachineControl:comb_5|lpm_divide:Mod1                                                                                 ; lpm_divide          ; work         ;
+;             |lpm_divide_42m:auto_generated|  ; 7 (0)             ; 0 (0)        ; 0                 ; 0          ; 0    ; 0            ; |CombinedCode|HeartDisease:gm1|StateMachineControl:comb_5|lpm_divide:Mod1|lpm_divide_42m:auto_generated                                                   ; lpm_divide_42m      ; work         ;
+;                |sign_div_unsign_7kh:divider| ; 7 (0)             ; 0 (0)        ; 0                 ; 0          ; 0    ; 0            ; |CombinedCode|HeartDisease:gm1|StateMachineControl:comb_5|lpm_divide:Mod1|lpm_divide_42m:auto_generated|sign_div_unsign_7kh:divider                       ; sign_div_unsign_7kh ; work         ;
+;                   |alt_u_div_kse:divider|    ; 7 (7)             ; 0 (0)        ; 0                 ; 0          ; 0    ; 0            ; |CombinedCode|HeartDisease:gm1|StateMachineControl:comb_5|lpm_divide:Mod1|lpm_divide_42m:auto_generated|sign_div_unsign_7kh:divider|alt_u_div_kse:divider ; alt_u_div_kse       ; work         ;
+;    |MoleBuster:gm2|                          ; 992 (801)         ; 711 (571)    ; 0                 ; 1          ; 0    ; 0            ; |CombinedCode|MoleBuster:gm2                                                                                                                              ; MoleBuster          ; work         ;
+;       |BCD:scr|                              ; 7 (7)             ; 0 (0)        ; 0                 ; 0          ; 0    ; 0            ; |CombinedCode|MoleBuster:gm2|BCD:scr                                                                                                                      ; BCD                 ; work         ;
+;       |checkkeypad:keypad_detect|            ; 61 (61)           ; 41 (41)      ; 0                 ; 0          ; 0    ; 0            ; |CombinedCode|MoleBuster:gm2|checkkeypad:keypad_detect                                                                                                    ; checkkeypad         ; work         ;
+;       |clk_divide:div|                       ; 41 (41)           ; 33 (33)      ; 0                 ; 0          ; 0    ; 0            ; |CombinedCode|MoleBuster:gm2|clk_divide:div                                                                                                               ; clk_divide          ; work         ;
+;       |clk_divide:dot|                       ; 41 (41)           ; 33 (33)      ; 0                 ; 0          ; 0    ; 0            ; |CombinedCode|MoleBuster:gm2|clk_divide:dot                                                                                                               ; clk_divide          ; work         ;
+;       |clk_divide:spn|                       ; 41 (41)           ; 33 (33)      ; 0                 ; 0          ; 0    ; 0            ; |CombinedCode|MoleBuster:gm2|clk_divide:spn                                                                                                               ; clk_divide          ; work         ;
++----------------------------------------------+-------------------+--------------+-------------------+------------+------+--------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------+---------------------+--------------+
+Note: For table entries with two numbers listed, the numbers in parentheses indicate the number of resources of the given type used by the specific entity alone. The numbers listed outside of parentheses indicate the total resources of the given type used by the specific entity and all of its sub-entities in the hierarchy.
+
+
++-----------------------------------------------+
+; Analysis & Synthesis DSP Block Usage Summary  ;
++---------------------------------+-------------+
+; Statistic                       ; Number Used ;
++---------------------------------+-------------+
+; Independent 9x9                 ; 1           ;
+; Total number of DSP blocks      ; 1           ;
+;                                 ;             ;
+; Fixed Point Unsigned Multiplier ; 1           ;
++---------------------------------+-------------+
+
+
+Encoding Type:  One-Hot
++---------------------------------------------------------------------------------+
+; State Machine - |CombinedCode|HeartDisease:gm1|StateMachineControl:comb_5|state ;
++----------+----------+----------+------------------------------------------------+
+; Name     ; state.s0 ; state.s2 ; state.s1                                       ;
++----------+----------+----------+------------------------------------------------+
+; state.s0 ; 0        ; 0        ; 0                                              ;
+; state.s1 ; 1        ; 0        ; 1                                              ;
+; state.s2 ; 1        ; 1        ; 0                                              ;
++----------+----------+----------+------------------------------------------------+
+
+
++---------------------------------------------------------------------------------------------------+
+; User-Specified and Inferred Latches                                                               ;
++----------------------------------------------------+---------------------+------------------------+
+; Latch Name                                         ; Latch Enable Signal ; Free of Timing Hazards ;
++----------------------------------------------------+---------------------+------------------------+
+; HeartDisease:gm1|StateMachineControl:comb_5|led1   ; rst                 ; yes                    ;
+; HeartDisease:gm1|StateMachineControl:comb_5|led2   ; rst                 ; yes                    ;
+; Number of user-specified and inferred latches = 2  ;                     ;                        ;
++----------------------------------------------------+---------------------+------------------------+
+Note: All latches listed above may not be present at the end of synthesis due to various synthesis optimizations.
+
+
++-------------------------------------------------------------------------------------------------------------------------+
+; Registers Removed During Synthesis                                                                                      ;
++------------------------------------------------------+------------------------------------------------------------------+
+; Register name                                        ; Reason for Removal                                               ;
++------------------------------------------------------+------------------------------------------------------------------+
+; MoleBuster:gm2|dot_col[1]                            ; Merged with MoleBuster:gm2|dot_col[0]                            ;
+; HeartDisease:gm1|DotMatrixDisplay:dot|dot_col[2]     ; Merged with HeartDisease:gm1|DotMatrixDisplay:dot|dot_col[1]     ;
+; MoleBuster:gm2|dot_col[3]                            ; Merged with MoleBuster:gm2|dot_col[2]                            ;
+; HeartDisease:gm1|DotMatrixDisplay:dot|dot_col[4]     ; Merged with HeartDisease:gm1|DotMatrixDisplay:dot|dot_col[3]     ;
+; MoleBuster:gm2|dot_col[5]                            ; Merged with MoleBuster:gm2|dot_col[4]                            ;
+; MoleBuster:gm2|dot_col[7]                            ; Merged with MoleBuster:gm2|dot_col[6]                            ;
+; HeartDisease:gm1|DotMatrixDisplay:dot|dot_col[9]     ; Merged with HeartDisease:gm1|DotMatrixDisplay:dot|dot_col[10]    ;
+; HeartDisease:gm1|DotMatrixDisplay:dot|dot_col[12]    ; Merged with HeartDisease:gm1|DotMatrixDisplay:dot|dot_col[11]    ;
+; MoleBuster:gm2|dot_col_buf[0][1]                     ; Merged with MoleBuster:gm2|dot_col_buf[0][0]                     ;
+; MoleBuster:gm2|dot_col_buf[1][1]                     ; Merged with MoleBuster:gm2|dot_col_buf[1][0]                     ;
+; MoleBuster:gm2|dot_col_buf[2][1]                     ; Merged with MoleBuster:gm2|dot_col_buf[2][0]                     ;
+; MoleBuster:gm2|dot_col_buf[3][1]                     ; Merged with MoleBuster:gm2|dot_col_buf[3][0]                     ;
+; MoleBuster:gm2|dot_col_buf[4][1]                     ; Merged with MoleBuster:gm2|dot_col_buf[4][0]                     ;
+; MoleBuster:gm2|dot_col_buf[5][1]                     ; Merged with MoleBuster:gm2|dot_col_buf[5][0]                     ;
+; MoleBuster:gm2|dot_col_buf[6][1]                     ; Merged with MoleBuster:gm2|dot_col_buf[6][0]                     ;
+; MoleBuster:gm2|dot_col_buf[7][0]                     ; Merged with MoleBuster:gm2|dot_col_buf[6][0]                     ;
+; MoleBuster:gm2|dot_col_buf[7][1]                     ; Merged with MoleBuster:gm2|dot_col_buf[6][0]                     ;
+; MoleBuster:gm2|dot_col_buf[0][3]                     ; Merged with MoleBuster:gm2|dot_col_buf[0][2]                     ;
+; MoleBuster:gm2|dot_col_buf[1][3]                     ; Merged with MoleBuster:gm2|dot_col_buf[1][2]                     ;
+; MoleBuster:gm2|dot_col_buf[2][3]                     ; Merged with MoleBuster:gm2|dot_col_buf[2][2]                     ;
+; MoleBuster:gm2|dot_col_buf[3][3]                     ; Merged with MoleBuster:gm2|dot_col_buf[3][2]                     ;
+; MoleBuster:gm2|dot_col_buf[4][3]                     ; Merged with MoleBuster:gm2|dot_col_buf[4][2]                     ;
+; MoleBuster:gm2|dot_col_buf[5][3]                     ; Merged with MoleBuster:gm2|dot_col_buf[5][2]                     ;
+; MoleBuster:gm2|dot_col_buf[6][3]                     ; Merged with MoleBuster:gm2|dot_col_buf[6][2]                     ;
+; MoleBuster:gm2|dot_col_buf[7][2]                     ; Merged with MoleBuster:gm2|dot_col_buf[6][2]                     ;
+; MoleBuster:gm2|dot_col_buf[7][3]                     ; Merged with MoleBuster:gm2|dot_col_buf[6][2]                     ;
+; MoleBuster:gm2|dot_col_buf[0][5]                     ; Merged with MoleBuster:gm2|dot_col_buf[0][4]                     ;
+; MoleBuster:gm2|dot_col_buf[1][5]                     ; Merged with MoleBuster:gm2|dot_col_buf[1][4]                     ;
+; MoleBuster:gm2|dot_col_buf[2][5]                     ; Merged with MoleBuster:gm2|dot_col_buf[2][4]                     ;
+; MoleBuster:gm2|dot_col_buf[3][5]                     ; Merged with MoleBuster:gm2|dot_col_buf[3][4]                     ;
+; MoleBuster:gm2|dot_col_buf[4][5]                     ; Merged with MoleBuster:gm2|dot_col_buf[4][4]                     ;
+; MoleBuster:gm2|dot_col_buf[5][5]                     ; Merged with MoleBuster:gm2|dot_col_buf[5][4]                     ;
+; MoleBuster:gm2|dot_col_buf[6][5]                     ; Merged with MoleBuster:gm2|dot_col_buf[6][4]                     ;
+; MoleBuster:gm2|dot_col_buf[7][4]                     ; Merged with MoleBuster:gm2|dot_col_buf[6][4]                     ;
+; MoleBuster:gm2|dot_col_buf[7][5]                     ; Merged with MoleBuster:gm2|dot_col_buf[6][4]                     ;
+; MoleBuster:gm2|dot_col_buf[0][7]                     ; Merged with MoleBuster:gm2|dot_col_buf[0][6]                     ;
+; MoleBuster:gm2|dot_col_buf[1][7]                     ; Merged with MoleBuster:gm2|dot_col_buf[1][6]                     ;
+; MoleBuster:gm2|dot_col_buf[2][7]                     ; Merged with MoleBuster:gm2|dot_col_buf[2][6]                     ;
+; MoleBuster:gm2|dot_col_buf[3][7]                     ; Merged with MoleBuster:gm2|dot_col_buf[3][6]                     ;
+; MoleBuster:gm2|dot_col_buf[4][7]                     ; Merged with MoleBuster:gm2|dot_col_buf[4][6]                     ;
+; MoleBuster:gm2|dot_col_buf[5][7]                     ; Merged with MoleBuster:gm2|dot_col_buf[5][6]                     ;
+; MoleBuster:gm2|dot_col_buf[6][7]                     ; Merged with MoleBuster:gm2|dot_col_buf[6][6]                     ;
+; MoleBuster:gm2|dot_col_buf[7][6]                     ; Merged with MoleBuster:gm2|dot_col_buf[6][6]                     ;
+; MoleBuster:gm2|dot_col_buf[7][7]                     ; Merged with MoleBuster:gm2|dot_col_buf[6][6]                     ;
+; HeartDisease:gm1|ButtonControl:button2|cnt[7]        ; Merged with HeartDisease:gm1|ButtonControl:button1|cnt[7]        ;
+; HeartDisease:gm1|ButtonControl:button2|cnt[6]        ; Merged with HeartDisease:gm1|ButtonControl:button1|cnt[6]        ;
+; HeartDisease:gm1|ButtonControl:button2|cnt[5]        ; Merged with HeartDisease:gm1|ButtonControl:button1|cnt[5]        ;
+; HeartDisease:gm1|ButtonControl:button2|cnt[4]        ; Merged with HeartDisease:gm1|ButtonControl:button1|cnt[4]        ;
+; HeartDisease:gm1|ButtonControl:button2|cnt[3]        ; Merged with HeartDisease:gm1|ButtonControl:button1|cnt[3]        ;
+; HeartDisease:gm1|ButtonControl:button2|cnt[2]        ; Merged with HeartDisease:gm1|ButtonControl:button1|cnt[2]        ;
+; HeartDisease:gm1|ButtonControl:button2|cnt[1]        ; Merged with HeartDisease:gm1|ButtonControl:button1|cnt[1]        ;
+; HeartDisease:gm1|ButtonControl:button2|cnt[0]        ; Merged with HeartDisease:gm1|ButtonControl:button1|cnt[0]        ;
+; HeartDisease:gm1|ButtonControl:button2|cnt[23]       ; Merged with HeartDisease:gm1|ButtonControl:button1|cnt[23]       ;
+; HeartDisease:gm1|ButtonControl:button2|cnt[21]       ; Merged with HeartDisease:gm1|ButtonControl:button1|cnt[21]       ;
+; HeartDisease:gm1|ButtonControl:button2|cnt[20]       ; Merged with HeartDisease:gm1|ButtonControl:button1|cnt[20]       ;
+; HeartDisease:gm1|ButtonControl:button2|cnt[19]       ; Merged with HeartDisease:gm1|ButtonControl:button1|cnt[19]       ;
+; HeartDisease:gm1|ButtonControl:button2|cnt[18]       ; Merged with HeartDisease:gm1|ButtonControl:button1|cnt[18]       ;
+; HeartDisease:gm1|ButtonControl:button2|cnt[17]       ; Merged with HeartDisease:gm1|ButtonControl:button1|cnt[17]       ;
+; HeartDisease:gm1|ButtonControl:button2|cnt[15]       ; Merged with HeartDisease:gm1|ButtonControl:button1|cnt[15]       ;
+; HeartDisease:gm1|ButtonControl:button2|cnt[13]       ; Merged with HeartDisease:gm1|ButtonControl:button1|cnt[13]       ;
+; HeartDisease:gm1|ButtonControl:button2|cnt[12]       ; Merged with HeartDisease:gm1|ButtonControl:button1|cnt[12]       ;
+; HeartDisease:gm1|ButtonControl:button2|cnt[11]       ; Merged with HeartDisease:gm1|ButtonControl:button1|cnt[11]       ;
+; HeartDisease:gm1|ButtonControl:button2|cnt[10]       ; Merged with HeartDisease:gm1|ButtonControl:button1|cnt[10]       ;
+; HeartDisease:gm1|ButtonControl:button2|cnt[31]       ; Merged with HeartDisease:gm1|ButtonControl:button1|cnt[31]       ;
+; HeartDisease:gm1|ButtonControl:button2|cnt[30]       ; Merged with HeartDisease:gm1|ButtonControl:button1|cnt[30]       ;
+; HeartDisease:gm1|ButtonControl:button2|cnt[29]       ; Merged with HeartDisease:gm1|ButtonControl:button1|cnt[29]       ;
+; HeartDisease:gm1|ButtonControl:button2|cnt[28]       ; Merged with HeartDisease:gm1|ButtonControl:button1|cnt[28]       ;
+; HeartDisease:gm1|ButtonControl:button2|cnt[27]       ; Merged with HeartDisease:gm1|ButtonControl:button1|cnt[27]       ;
+; HeartDisease:gm1|ButtonControl:button2|cnt[26]       ; Merged with HeartDisease:gm1|ButtonControl:button1|cnt[26]       ;
+; HeartDisease:gm1|ButtonControl:button2|cnt[25]       ; Merged with HeartDisease:gm1|ButtonControl:button1|cnt[25]       ;
+; HeartDisease:gm1|ButtonControl:button2|cnt[24]       ; Merged with HeartDisease:gm1|ButtonControl:button1|cnt[24]       ;
+; HeartDisease:gm1|ButtonControl:button2|cnt[22]       ; Merged with HeartDisease:gm1|ButtonControl:button1|cnt[22]       ;
+; HeartDisease:gm1|ButtonControl:button2|cnt[16]       ; Merged with HeartDisease:gm1|ButtonControl:button1|cnt[16]       ;
+; HeartDisease:gm1|ButtonControl:button2|cnt[14]       ; Merged with HeartDisease:gm1|ButtonControl:button1|cnt[14]       ;
+; HeartDisease:gm1|ButtonControl:button2|cnt[9]        ; Merged with HeartDisease:gm1|ButtonControl:button1|cnt[9]        ;
+; HeartDisease:gm1|ButtonControl:button2|cnt[8]        ; Merged with HeartDisease:gm1|ButtonControl:button1|cnt[8]        ;
+; HeartDisease:gm1|DotMatrixDisplay:dot|dot_col[0,8]   ; Stuck at GND due to stuck port data_in                           ;
+; HeartDisease:gm1|StateMachineControl:comb_5|state~6  ; Lost fanout                                                      ;
+; HeartDisease:gm1|StateMachineControl:comb_5|state~7  ; Lost fanout                                                      ;
+; MoleBuster:gm2|dot_col_buf[1][0]                     ; Merged with MoleBuster:gm2|dot_col_buf[0][0]                     ;
+; MoleBuster:gm2|dot_col_buf[3][0]                     ; Merged with MoleBuster:gm2|dot_col_buf[2][0]                     ;
+; MoleBuster:gm2|dot_col_buf[5][0]                     ; Merged with MoleBuster:gm2|dot_col_buf[4][0]                     ;
+; MoleBuster:gm2|dot_col_buf[1][2]                     ; Merged with MoleBuster:gm2|dot_col_buf[0][2]                     ;
+; MoleBuster:gm2|dot_col_buf[3][2]                     ; Merged with MoleBuster:gm2|dot_col_buf[2][2]                     ;
+; MoleBuster:gm2|dot_col_buf[5][2]                     ; Merged with MoleBuster:gm2|dot_col_buf[4][2]                     ;
+; MoleBuster:gm2|dot_col_buf[1][4]                     ; Merged with MoleBuster:gm2|dot_col_buf[0][4]                     ;
+; MoleBuster:gm2|dot_col_buf[3][4]                     ; Merged with MoleBuster:gm2|dot_col_buf[2][4]                     ;
+; MoleBuster:gm2|dot_col_buf[5][4]                     ; Merged with MoleBuster:gm2|dot_col_buf[4][4]                     ;
+; MoleBuster:gm2|dot_col_buf[1][6]                     ; Merged with MoleBuster:gm2|dot_col_buf[0][6]                     ;
+; MoleBuster:gm2|dot_col_buf[3][6]                     ; Merged with MoleBuster:gm2|dot_col_buf[2][6]                     ;
+; MoleBuster:gm2|dot_col_buf[5][6]                     ; Merged with MoleBuster:gm2|dot_col_buf[4][6]                     ;
+; HeartDisease:gm1|StateMachineControl:comb_5|state.s2 ; Merged with HeartDisease:gm1|StateMachineControl:comb_5|state.s1 ;
+; HeartDisease:gm1|StateMachineControl:comb_5|state.s1 ; Stuck at GND due to stuck port data_in                           ;
+; HeartDisease:gm1|StateMachineControl:comb_5|state.s0 ; Stuck at GND due to stuck port data_in                           ;
+; Total Number of Removed Registers = 95               ;                                                                  ;
++------------------------------------------------------+------------------------------------------------------------------+
+
+
++------------------------------------------------------+
+; General Register Statistics                          ;
++----------------------------------------------+-------+
+; Statistic                                    ; Value ;
++----------------------------------------------+-------+
+; Total registers                              ; 849   ;
+; Number of registers using Synchronous Clear  ; 792   ;
+; Number of registers using Synchronous Load   ; 8     ;
+; Number of registers using Asynchronous Clear ; 204   ;
+; Number of registers using Asynchronous Load  ; 0     ;
+; Number of registers using Clock Enable       ; 570   ;
+; Number of registers using Preset             ; 0     ;
++----------------------------------------------+-------+
+
+
++------------------------------------------------------------------+
+; Inverted Register Statistics                                     ;
++--------------------------------------------------------+---------+
+; Inverted Register                                      ; Fan out ;
++--------------------------------------------------------+---------+
+; MoleBuster:gm2|checkkeypad:keypad_detect|keypadRow[1]  ; 12      ;
+; MoleBuster:gm2|checkkeypad:keypad_detect|keypadRow[2]  ; 12      ;
+; MoleBuster:gm2|checkkeypad:keypad_detect|keypadRow[3]  ; 13      ;
+; HeartDisease:gm1|StateMachineControl:comb_5|number1[1] ; 10      ;
+; HeartDisease:gm1|StateMachineControl:comb_5|number2[0] ; 11      ;
+; HeartDisease:gm1|StateMachineControl:comb_5|number2[1] ; 12      ;
+; MoleBuster:gm2|checkkeypad:keypad_detect|keypadBuf[4]  ; 28      ;
+; MoleBuster:gm2|checkkeypad:keypad_detect|keypadBuf[3]  ; 31      ;
+; MoleBuster:gm2|checkkeypad:keypad_detect|keypadBuf[1]  ; 29      ;
+; MoleBuster:gm2|checkkeypad:keypad_detect|keypadBuf[0]  ; 30      ;
+; MoleBuster:gm2|checkkeypad:keypad_detect|keypadBuf[2]  ; 30      ;
+; HeartDisease:gm1|StateMachineControl:comb_5|tmp1[1]    ; 4       ;
+; HeartDisease:gm1|StateMachineControl:comb_5|tmp2[0]    ; 5       ;
+; HeartDisease:gm1|StateMachineControl:comb_5|tmp2[1]    ; 4       ;
+; MoleBuster:gm2|rnd_seq[0]                              ; 1       ;
+; Total number of inverted registers = 15                ;         ;
++--------------------------------------------------------+---------+
+
+
++--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Multiplexer Restructuring Statistics (Restructuring Performed)                                                                                                                       ;
++--------------------+-----------+---------------+----------------------+------------------------+------------+------------------------------------------------------------------------+
+; Multiplexer Inputs ; Bus Width ; Baseline Area ; Area if Restructured ; Saving if Restructured ; Registered ; Example Multiplexer Output                                             ;
++--------------------+-----------+---------------+----------------------+------------------------+------------+------------------------------------------------------------------------+
+; 3:1                ; 10 bits   ; 20 LEs        ; 0 LEs                ; 20 LEs                 ; Yes        ; |CombinedCode|HeartDisease:gm1|StateMachineControl:comb_5|tmp2[2]      ;
+; 3:1                ; 32 bits   ; 64 LEs        ; 0 LEs                ; 64 LEs                 ; Yes        ; |CombinedCode|MoleBuster:gm2|checkkeypad:keypad_detect|keypadDelay[24] ;
+; 3:1                ; 32 bits   ; 64 LEs        ; 0 LEs                ; 64 LEs                 ; Yes        ; |CombinedCode|MoleBuster:gm2|clk_divide:dot|count[12]                  ;
+; 3:1                ; 32 bits   ; 64 LEs        ; 0 LEs                ; 64 LEs                 ; Yes        ; |CombinedCode|MoleBuster:gm2|clk_divide:div|count[1]                   ;
+; 3:1                ; 32 bits   ; 64 LEs        ; 0 LEs                ; 64 LEs                 ; Yes        ; |CombinedCode|MoleBuster:gm2|clk_divide:spn|count[13]                  ;
+; 16:1               ; 8 bits    ; 80 LEs        ; 40 LEs               ; 40 LEs                 ; Yes        ; |CombinedCode|HeartDisease:gm1|DotMatrixDisplay:dot|dot_row[4]         ;
+; 9:1                ; 4 bits    ; 24 LEs        ; 20 LEs               ; 4 LEs                  ; Yes        ; |CombinedCode|MoleBuster:gm2|dot_col[4]                                ;
+; 11:1               ; 2 bits    ; 14 LEs        ; 4 LEs                ; 10 LEs                 ; Yes        ; |CombinedCode|MoleBuster:gm2|dot_col_buf[1][6]                         ;
+; 11:1               ; 2 bits    ; 14 LEs        ; 4 LEs                ; 10 LEs                 ; Yes        ; |CombinedCode|MoleBuster:gm2|dot_col_buf[0][4]                         ;
+; 11:1               ; 2 bits    ; 14 LEs        ; 4 LEs                ; 10 LEs                 ; Yes        ; |CombinedCode|MoleBuster:gm2|dot_col_buf[1][2]                         ;
+; 11:1               ; 2 bits    ; 14 LEs        ; 4 LEs                ; 10 LEs                 ; Yes        ; |CombinedCode|MoleBuster:gm2|dot_col_buf[0][0]                         ;
+; 11:1               ; 2 bits    ; 14 LEs        ; 4 LEs                ; 10 LEs                 ; Yes        ; |CombinedCode|MoleBuster:gm2|dot_col_buf[2][6]                         ;
+; 11:1               ; 2 bits    ; 14 LEs        ; 4 LEs                ; 10 LEs                 ; Yes        ; |CombinedCode|MoleBuster:gm2|dot_col_buf[3][4]                         ;
+; 11:1               ; 2 bits    ; 14 LEs        ; 4 LEs                ; 10 LEs                 ; Yes        ; |CombinedCode|MoleBuster:gm2|dot_col_buf[2][2]                         ;
+; 11:1               ; 2 bits    ; 14 LEs        ; 4 LEs                ; 10 LEs                 ; Yes        ; |CombinedCode|MoleBuster:gm2|dot_col_buf[3][0]                         ;
+; 11:1               ; 2 bits    ; 14 LEs        ; 4 LEs                ; 10 LEs                 ; Yes        ; |CombinedCode|MoleBuster:gm2|dot_col_buf[4][6]                         ;
+; 11:1               ; 2 bits    ; 14 LEs        ; 4 LEs                ; 10 LEs                 ; Yes        ; |CombinedCode|MoleBuster:gm2|dot_col_buf[4][4]                         ;
+; 11:1               ; 2 bits    ; 14 LEs        ; 4 LEs                ; 10 LEs                 ; Yes        ; |CombinedCode|MoleBuster:gm2|dot_col_buf[4][2]                         ;
+; 11:1               ; 2 bits    ; 14 LEs        ; 4 LEs                ; 10 LEs                 ; Yes        ; |CombinedCode|MoleBuster:gm2|dot_col_buf[5][0]                         ;
+; 49:1               ; 3 bits    ; 96 LEs        ; 3 LEs                ; 93 LEs                 ; Yes        ; |CombinedCode|MoleBuster:gm2|cur2[3]                                   ;
+; 3:1                ; 6 bits    ; 12 LEs        ; 6 LEs                ; 6 LEs                  ; Yes        ; |CombinedCode|HeartDisease:gm1|StateMachineControl:comb_5|number2[1]   ;
+; 3:1                ; 3 bits    ; 6 LEs         ; 3 LEs                ; 3 LEs                  ; Yes        ; |CombinedCode|MoleBuster:gm2|checkkeypad:keypad_detect|keypadRow[1]    ;
+; 258:1              ; 4 bits    ; 688 LEs       ; 44 LEs               ; 644 LEs                ; Yes        ; |CombinedCode|MoleBuster:gm2|checkkeypad:keypad_detect|keypadBuf[0]    ;
+; 3:1                ; 2 bits    ; 4 LEs         ; 4 LEs                ; 0 LEs                  ; No         ; |CombinedCode|HeartDisease:gm1|StateMachineControl:comb_5|next         ;
++--------------------+-----------+---------------+----------------------+------------------------+------------+------------------------------------------------------------------------+
+
+
++------------------------------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: HeartDisease:gm1|StateMachineControl:comb_5 ;
++----------------+-------+-----------------------------------------------------------------+
+; Parameter Name ; Value ; Type                                                            ;
++----------------+-------+-----------------------------------------------------------------+
+; s0             ; 0000  ; Unsigned Binary                                                 ;
+; s1             ; 0001  ; Unsigned Binary                                                 ;
+; s2             ; 0010  ; Unsigned Binary                                                 ;
++----------------+-------+-----------------------------------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++--------------------------------------------------------------------------------------------------------------+
+; Parameter Settings for Inferred Entity Instance: HeartDisease:gm1|StateMachineControl:comb_5|lpm_divide:Mod0 ;
++------------------------+----------------+--------------------------------------------------------------------+
+; Parameter Name         ; Value          ; Type                                                               ;
++------------------------+----------------+--------------------------------------------------------------------+
+; LPM_WIDTHN             ; 4              ; Untyped                                                            ;
+; LPM_WIDTHD             ; 4              ; Untyped                                                            ;
+; LPM_NREPRESENTATION    ; UNSIGNED       ; Untyped                                                            ;
+; LPM_DREPRESENTATION    ; UNSIGNED       ; Untyped                                                            ;
+; LPM_PIPELINE           ; 0              ; Untyped                                                            ;
+; LPM_REMAINDERPOSITIVE  ; TRUE           ; Untyped                                                            ;
+; MAXIMIZE_SPEED         ; 5              ; Untyped                                                            ;
+; CBXI_PARAMETER         ; lpm_divide_42m ; Untyped                                                            ;
+; CARRY_CHAIN            ; MANUAL         ; Untyped                                                            ;
+; OPTIMIZE_FOR_SPEED     ; 5              ; Untyped                                                            ;
+; AUTO_CARRY_CHAINS      ; ON             ; AUTO_CARRY                                                         ;
+; IGNORE_CARRY_BUFFERS   ; OFF            ; IGNORE_CARRY                                                       ;
+; AUTO_CASCADE_CHAINS    ; ON             ; AUTO_CASCADE                                                       ;
+; IGNORE_CASCADE_BUFFERS ; OFF            ; IGNORE_CASCADE                                                     ;
++------------------------+----------------+--------------------------------------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++--------------------------------------------------------------------------------------------------------------+
+; Parameter Settings for Inferred Entity Instance: HeartDisease:gm1|StateMachineControl:comb_5|lpm_divide:Mod1 ;
++------------------------+----------------+--------------------------------------------------------------------+
+; Parameter Name         ; Value          ; Type                                                               ;
++------------------------+----------------+--------------------------------------------------------------------+
+; LPM_WIDTHN             ; 4              ; Untyped                                                            ;
+; LPM_WIDTHD             ; 4              ; Untyped                                                            ;
+; LPM_NREPRESENTATION    ; UNSIGNED       ; Untyped                                                            ;
+; LPM_DREPRESENTATION    ; UNSIGNED       ; Untyped                                                            ;
+; LPM_PIPELINE           ; 0              ; Untyped                                                            ;
+; LPM_REMAINDERPOSITIVE  ; TRUE           ; Untyped                                                            ;
+; MAXIMIZE_SPEED         ; 5              ; Untyped                                                            ;
+; CBXI_PARAMETER         ; lpm_divide_42m ; Untyped                                                            ;
+; CARRY_CHAIN            ; MANUAL         ; Untyped                                                            ;
+; OPTIMIZE_FOR_SPEED     ; 5              ; Untyped                                                            ;
+; AUTO_CARRY_CHAINS      ; ON             ; AUTO_CARRY                                                         ;
+; IGNORE_CARRY_BUFFERS   ; OFF            ; IGNORE_CARRY                                                       ;
+; AUTO_CASCADE_CHAINS    ; ON             ; AUTO_CASCADE                                                       ;
+; IGNORE_CASCADE_BUFFERS ; OFF            ; IGNORE_CASCADE                                                     ;
++------------------------+----------------+--------------------------------------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++-----------------------------------------------------------+
+; Port Connectivity Checks: "MoleBuster:gm2|clk_divide:spn" ;
++-------------------+-------+----------+--------------------+
+; Port              ; Type  ; Severity ; Details            ;
++-------------------+-------+----------+--------------------+
+; frequency[22..18] ; Input ; Info     ; Stuck at VCC       ;
+; frequency[14..11] ; Input ; Info     ; Stuck at VCC       ;
+; frequency[31..25] ; Input ; Info     ; Stuck at GND       ;
+; frequency[10..7]  ; Input ; Info     ; Stuck at GND       ;
+; frequency[5..0]   ; Input ; Info     ; Stuck at GND       ;
+; frequency[24]     ; Input ; Info     ; Stuck at VCC       ;
+; frequency[23]     ; Input ; Info     ; Stuck at GND       ;
+; frequency[17]     ; Input ; Info     ; Stuck at GND       ;
+; frequency[16]     ; Input ; Info     ; Stuck at VCC       ;
+; frequency[15]     ; Input ; Info     ; Stuck at GND       ;
+; frequency[6]      ; Input ; Info     ; Stuck at VCC       ;
++-------------------+-------+----------+--------------------+
+
+
++-----------------------------------------------------------+
+; Port Connectivity Checks: "MoleBuster:gm2|clk_divide:dot" ;
++-------------------+-------+----------+--------------------+
+; Port              ; Type  ; Severity ; Details            ;
++-------------------+-------+----------+--------------------+
+; frequency[9..7]   ; Input ; Info     ; Stuck at VCC       ;
+; frequency[31..13] ; Input ; Info     ; Stuck at GND       ;
+; frequency[11..10] ; Input ; Info     ; Stuck at GND       ;
+; frequency[6..4]   ; Input ; Info     ; Stuck at GND       ;
+; frequency[2..0]   ; Input ; Info     ; Stuck at GND       ;
+; frequency[12]     ; Input ; Info     ; Stuck at VCC       ;
+; frequency[3]      ; Input ; Info     ; Stuck at VCC       ;
++-------------------+-------+----------+--------------------+
+
+
++-----------------------------------------------------------+
+; Port Connectivity Checks: "MoleBuster:gm2|clk_divide:div" ;
++-------------------+-------+----------+--------------------+
+; Port              ; Type  ; Severity ; Details            ;
++-------------------+-------+----------+--------------------+
+; frequency[17..14] ; Input ; Info     ; Stuck at VCC       ;
+; frequency[31..18] ; Input ; Info     ; Stuck at GND       ;
+; frequency[11..8]  ; Input ; Info     ; Stuck at GND       ;
+; frequency[6..5]   ; Input ; Info     ; Stuck at GND       ;
+; frequency[3..0]   ; Input ; Info     ; Stuck at GND       ;
+; frequency[13]     ; Input ; Info     ; Stuck at GND       ;
+; frequency[12]     ; Input ; Info     ; Stuck at VCC       ;
+; frequency[7]      ; Input ; Info     ; Stuck at VCC       ;
+; frequency[4]      ; Input ; Info     ; Stuck at VCC       ;
++-------------------+-------+----------+--------------------+
+
+
++-----------------------------------------------------+
+; Post-Synthesis Netlist Statistics for Top Partition ;
++-----------------------+-----------------------------+
+; Type                  ; Count                       ;
++-----------------------+-----------------------------+
+; arriav_ff             ; 849                         ;
+;     CLR               ; 14                          ;
+;     CLR SCLR          ; 166                         ;
+;     ENA               ; 26                          ;
+;     ENA CLR           ; 9                           ;
+;     ENA CLR SCLR      ; 15                          ;
+;     ENA SCLR          ; 512                         ;
+;     ENA SLD           ; 8                           ;
+;     SCLR              ; 99                          ;
+; arriav_lcell_comb     ; 1217                        ;
+;     arith             ; 744                         ;
+;         1 data inputs ; 736                         ;
+;         2 data inputs ; 8                           ;
+;     extend            ; 2                           ;
+;         7 data inputs ; 2                           ;
+;     normal            ; 461                         ;
+;         0 data inputs ; 1                           ;
+;         1 data inputs ; 9                           ;
+;         2 data inputs ; 65                          ;
+;         3 data inputs ; 62                          ;
+;         4 data inputs ; 56                          ;
+;         5 data inputs ; 40                          ;
+;         6 data inputs ; 228                         ;
+;     shared            ; 10                          ;
+;         0 data inputs ; 2                           ;
+;         1 data inputs ; 8                           ;
+; arriav_mac            ; 1                           ;
+; boundary_port         ; 46                          ;
+;                       ;                             ;
+; Max LUT depth         ; 5.00                        ;
+; Average LUT depth     ; 3.38                        ;
++-----------------------+-----------------------------+
+
+
++-------------------------------+
+; Elapsed Time Per Partition    ;
++----------------+--------------+
+; Partition Name ; Elapsed Time ;
++----------------+--------------+
+; Top            ; 00:00:03     ;
++----------------+--------------+
+
+
++-------------------------------+
+; Analysis & Synthesis Messages ;
++-------------------------------+
+Info: *******************************************************************
+Info: Running Quartus Prime Analysis & Synthesis
+    Info: Version 16.0.0 Build 211 04/27/2016 SJ Lite Edition
+    Info: Processing started: Tue Jan 05 19:04:08 2021
+Info: Command: quartus_map --read_settings_files=on --write_settings_files=off CombinedCode -c CombinedCode
+Warning (18236): Number of processors has not been specified which may cause overloading on shared machines.  Set the global assignment NUM_PARALLEL_PROCESSORS in your QSF to an appropriate value for best performance.
+Info (20030): Parallel compilation is enabled and will use 4 of the 4 processors detected
+Warning (12019): Can't analyze file -- file CombinedCode.sv is missing
+Info (12021): Found 7 design units, including 7 entities, in source file combinedcode.v
+    Info (12023): Found entity 1: HeartDisease File: D:/NCKU/4th-1/digital_sys_exp/combine/HeartDisease.v Line: 5
+    Info (12023): Found entity 2: StateMachineControl File: D:/NCKU/4th-1/digital_sys_exp/combine/HeartDisease.v Line: 39
+    Info (12023): Found entity 3: DotMatrixDisplay File: D:/NCKU/4th-1/digital_sys_exp/combine/HeartDisease.v Line: 134
+    Info (12023): Found entity 4: ButtonControl File: D:/NCKU/4th-1/digital_sys_exp/combine/HeartDisease.v Line: 418
+    Info (12023): Found entity 5: ClockDividerSeven File: D:/NCKU/4th-1/digital_sys_exp/combine/HeartDisease.v Line: 452
+    Info (12023): Found entity 6: ClockDivDot File: D:/NCKU/4th-1/digital_sys_exp/combine/HeartDisease.v Line: 472
+    Info (12023): Found entity 7: CombinedCode File: D:/NCKU/4th-1/digital_sys_exp/combine/CombinedCode.v Line: 2
+Critical Warning (10846): Verilog HDL Instantiation warning at HeartDisease.v(21): instance has no name File: D:/NCKU/4th-1/digital_sys_exp/combine/HeartDisease.v Line: 21
+Critical Warning (10846): Verilog HDL Instantiation warning at HeartDisease.v(23): instance has no name File: D:/NCKU/4th-1/digital_sys_exp/combine/HeartDisease.v Line: 23
+Critical Warning (10846): Verilog HDL Instantiation warning at HeartDisease.v(28): instance has no name File: D:/NCKU/4th-1/digital_sys_exp/combine/HeartDisease.v Line: 28
+Info (12127): Elaborating entity "CombinedCode" for the top level hierarchy
+Info (12128): Elaborating entity "HeartDisease" for hierarchy "HeartDisease:gm1" File: D:/NCKU/4th-1/digital_sys_exp/combine/CombinedCode.v Line: 22
+Info (12128): Elaborating entity "ClockDividerSeven" for hierarchy "HeartDisease:gm1|ClockDividerSeven:comb_3" File: D:/NCKU/4th-1/digital_sys_exp/combine/HeartDisease.v Line: 21
+Info (12128): Elaborating entity "ClockDivDot" for hierarchy "HeartDisease:gm1|ClockDivDot:comb_4" File: D:/NCKU/4th-1/digital_sys_exp/combine/HeartDisease.v Line: 23
+Info (12128): Elaborating entity "ButtonControl" for hierarchy "HeartDisease:gm1|ButtonControl:button1" File: D:/NCKU/4th-1/digital_sys_exp/combine/HeartDisease.v Line: 25
+Info (12128): Elaborating entity "StateMachineControl" for hierarchy "HeartDisease:gm1|StateMachineControl:comb_5" File: D:/NCKU/4th-1/digital_sys_exp/combine/HeartDisease.v Line: 28
+Warning (10240): Verilog HDL Always Construct warning at HeartDisease.v(56): inferring latch(es) for variable "led1", which holds its previous value in one or more paths through the always construct File: D:/NCKU/4th-1/digital_sys_exp/combine/HeartDisease.v Line: 56
+Warning (10240): Verilog HDL Always Construct warning at HeartDisease.v(56): inferring latch(es) for variable "led2", which holds its previous value in one or more paths through the always construct File: D:/NCKU/4th-1/digital_sys_exp/combine/HeartDisease.v Line: 56
+Info (10041): Inferred latch for "led2" at HeartDisease.v(60) File: D:/NCKU/4th-1/digital_sys_exp/combine/HeartDisease.v Line: 60
+Info (10041): Inferred latch for "led1" at HeartDisease.v(60) File: D:/NCKU/4th-1/digital_sys_exp/combine/HeartDisease.v Line: 60
+Info (12128): Elaborating entity "DotMatrixDisplay" for hierarchy "HeartDisease:gm1|DotMatrixDisplay:dot" File: D:/NCKU/4th-1/digital_sys_exp/combine/HeartDisease.v Line: 31
+Warning (12125): Using design file molebuster.v, which is not specified as a design file for the current project, but contains definitions for 4 design units and 4 entities in project
+    Info (12023): Found entity 1: MoleBuster File: D:/NCKU/4th-1/digital_sys_exp/combine/molebuster.v Line: 1
+    Info (12023): Found entity 2: checkkeypad File: D:/NCKU/4th-1/digital_sys_exp/combine/molebuster.v Line: 428
+    Info (12023): Found entity 3: clk_divide File: D:/NCKU/4th-1/digital_sys_exp/combine/molebuster.v Line: 488
+    Info (12023): Found entity 4: BCD File: D:/NCKU/4th-1/digital_sys_exp/combine/molebuster.v Line: 518
+Info (12128): Elaborating entity "MoleBuster" for hierarchy "MoleBuster:gm2" File: D:/NCKU/4th-1/digital_sys_exp/combine/CombinedCode.v Line: 24
+Warning (10036): Verilog HDL or VHDL warning at molebuster.v(14): object "score_count" assigned a value but never read File: D:/NCKU/4th-1/digital_sys_exp/combine/molebuster.v Line: 14
+Warning (10230): Verilog HDL assignment warning at molebuster.v(69): truncated value with size 4 to match size of target (3) File: D:/NCKU/4th-1/digital_sys_exp/combine/molebuster.v Line: 69
+Info (12128): Elaborating entity "clk_divide" for hierarchy "MoleBuster:gm2|clk_divide:div" File: D:/NCKU/4th-1/digital_sys_exp/combine/molebuster.v Line: 17
+Info (12128): Elaborating entity "BCD" for hierarchy "MoleBuster:gm2|BCD:scr" File: D:/NCKU/4th-1/digital_sys_exp/combine/molebuster.v Line: 22
+Info (12128): Elaborating entity "checkkeypad" for hierarchy "MoleBuster:gm2|checkkeypad:keypad_detect" File: D:/NCKU/4th-1/digital_sys_exp/combine/molebuster.v Line: 24
+Info (278001): Inferred 2 megafunctions from design logic
+    Info (278004): Inferred divider/modulo megafunction ("lpm_divide") from the following logic: "HeartDisease:gm1|StateMachineControl:comb_5|Mod0" File: D:/NCKU/4th-1/digital_sys_exp/combine/HeartDisease.v Line: 123
+    Info (278004): Inferred divider/modulo megafunction ("lpm_divide") from the following logic: "HeartDisease:gm1|StateMachineControl:comb_5|Mod1" File: D:/NCKU/4th-1/digital_sys_exp/combine/HeartDisease.v Line: 124
+Info (12130): Elaborated megafunction instantiation "HeartDisease:gm1|StateMachineControl:comb_5|lpm_divide:Mod0" File: D:/NCKU/4th-1/digital_sys_exp/combine/HeartDisease.v Line: 123
+Info (12133): Instantiated megafunction "HeartDisease:gm1|StateMachineControl:comb_5|lpm_divide:Mod0" with the following parameter: File: D:/NCKU/4th-1/digital_sys_exp/combine/HeartDisease.v Line: 123
+    Info (12134): Parameter "LPM_WIDTHN" = "4"
+    Info (12134): Parameter "LPM_WIDTHD" = "4"
+    Info (12134): Parameter "LPM_NREPRESENTATION" = "UNSIGNED"
+    Info (12134): Parameter "LPM_DREPRESENTATION" = "UNSIGNED"
+Info (12021): Found 1 design units, including 1 entities, in source file db/lpm_divide_42m.tdf
+    Info (12023): Found entity 1: lpm_divide_42m File: D:/NCKU/4th-1/digital_sys_exp/combine/db/lpm_divide_42m.tdf Line: 25
+Info (12021): Found 1 design units, including 1 entities, in source file db/sign_div_unsign_7kh.tdf
+    Info (12023): Found entity 1: sign_div_unsign_7kh File: D:/NCKU/4th-1/digital_sys_exp/combine/db/sign_div_unsign_7kh.tdf Line: 25
+Info (12021): Found 1 design units, including 1 entities, in source file db/alt_u_div_kse.tdf
+    Info (12023): Found entity 1: alt_u_div_kse File: D:/NCKU/4th-1/digital_sys_exp/combine/db/alt_u_div_kse.tdf Line: 23
+Warning (13024): Output pins are stuck at VCC or GND
+    Warning (13410): Pin "dot_col[8]" is stuck at GND File: D:/NCKU/4th-1/digital_sys_exp/combine/CombinedCode.v Line: 11
+Info (286030): Timing-Driven Synthesis is running
+Info (17049): 2 registers lost all their fanouts during netlist optimizations.
+Info (144001): Generated suppressed messages file D:/NCKU/4th-1/digital_sys_exp/combine/output_files/CombinedCode.map.smsg
+Info (16010): Generating hard_block partition "hard_block:auto_generated_inst"
+    Info (16011): Adding 0 node(s), including 0 DDIO, 0 PLL, 0 transceiver and 0 LCELL
+Info (21057): Implemented 1272 device resources after synthesis - the final resource count might be different
+    Info (21058): Implemented 9 input pins
+    Info (21059): Implemented 37 output pins
+    Info (21061): Implemented 1225 logic cells
+    Info (21062): Implemented 1 DSP elements
+Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 12 warnings
+    Info: Peak virtual memory: 5063 megabytes
+    Info: Processing ended: Tue Jan 05 19:04:27 2021
+    Info: Elapsed time: 00:00:19
+    Info: Total CPU time (on all processors): 00:00:41
+
+
++------------------------------------------+
+; Analysis & Synthesis Suppressed Messages ;
++------------------------------------------+
+The suppressed messages can be found in D:/NCKU/4th-1/digital_sys_exp/combine/output_files/CombinedCode.map.smsg.
+
+

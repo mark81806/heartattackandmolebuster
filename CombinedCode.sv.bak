@@ -1,0 +1,70 @@
+module CombinedCode(input clk,
+                        input rst,
+                        input btn1,
+                        input btn2,
+                        output wire [6:0] seven1,
+                        output wire [6:0] seven2,
+                        output wire [7:0] dot_row,
+                        output wire [15:0] dot_col,
+                        output wire led1,
+                        output wire led2);
+								
+endmodule
+
+
+
+
+
+
+module SevenSegmentDisplay( input [3:0] number,
+                            output reg [6:0] seven);
+
+always@(*) begin
+   case(number)
+		4'd0:seven=7'b1000000;
+		4'd1:seven=7'b1111001;
+		4'd2:seven=7'b0100100;
+		4'd3:seven=7'b0110000;
+		4'd4:seven=7'b0011001;
+		4'd5:seven=7'b0010010;
+		4'd6:seven=7'b0000010;
+		4'd7:seven=7'b1111000;
+		4'd8:seven=7'b0000000;
+		4'd9:seven=7'b0010000;
+	endcase
+end
+endmodule
+
+
+
+module clk_divide(clk, rst, div_clk, frequency);
+input clk, rst;
+input [31:0] frequency;
+output div_clk;
+
+reg div_clk;
+reg [31:0] count;
+
+always@(posedge clk)
+begin
+	if(!rst)
+	begin
+		count <= 32'd0;
+		div_clk <= 1'b0;
+	end
+	else
+	begin
+		if(count==frequency)
+		begin
+			count <= 32'd0;
+			div_clk <= ~div_clk;
+		end
+		else
+		begin
+			count <= count + 32'd1;
+		end
+	end
+end
+
+endmodule
+

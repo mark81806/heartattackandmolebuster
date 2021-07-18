@@ -1,0 +1,587 @@
+module CombinedCode(clk,rst,switch, btn1, btn2, dot_row, dot_col, seven_left, seven_right, led1, led2);
+
+input clk,rst;
+input switch;
+//gm1:
+input btn1, btn2;
+output wire [7:0] dot_row;
+output wire [15:0] dot_col;
+output wire [6:0] seven_left;
+output wire [6:0] seven_right;
+output wire led1, led2;
+							
+wire game;	
+wire clk_seven, clk_div, clk_dot, clk_spn;
+
+
+// gm1: seven_Segment_display
+clk_divide seven(clk,rst,clk_seven,32'd50000000);
+
+ // gm2: assign dot matrix column, scan dot matrix row, turn on dot matrix, respectively	
+clk_divide div(clk,rst,clk_div,32'd250000);
+clk_divide dot(clk,rst,clk_dot,32'd5000);
+clk_divide spn(clk,rst,clk_spn,32'd25000000);
+HeartAttack gm1(.clk(clk),rst,btn1,btn2,seven_left,seven_right,dot_row,dot_col,led1,led2);
+always@(switch)
+	begin
+	case(switch)
+	0:game=0;
+	1:game=1;
+	endcase
+end
+
+
+
+	
+
+							
+endmodule
+
+
+//gm1
+module HeartAttack(  input game,
+								input clk,
+								input rst,
+                        input btn1,
+                        input btn2,
+								input clk_seven, 
+								input clk_dot,
+                        output wire [6:0] seven1,
+                        output wire [6:0] seven2,
+                        output wire [7:0] dot_row,
+                        output wire [15:0] dot_col,
+                        output wire led1,
+                        output wire led2);
+
+
+wire [3:0] number1, number2;
+wire btn1push, btn2push;
+
+
+	ButtonControl button1(btn1, clk, rst, btn1push);
+	ButtonControl button2(btn2, clk, rst, btn2push);
+
+	StateMachineControl (clk_seven, rst, btn1push, btn2push, number1, number2, led1, led2);
+	DotMatrixDisplay dot(clk_dot, number1, number2, rst, dot_row, dot_col);
+
+	SevenSegmentDisplay sevenSegment1(number1, seven1);
+	SevenSegmentDisplay sevenSegment2(number2, seven2);
+	
+
+endmodule
+
+
+module ButtonControl(btn,clk,rst,isPushed);
+input btn;
+input clk;
+input rst;
+output reg isPushed;
+
+reg [31:0] cnt;
+always@(posedge clk or negedge rst)
+begin
+	
+    if(~rst)
+    begin
+        isPushed <= 1'b0;
+        cnt <= 32'd0;
+    end
+    else
+    begin
+        if(cnt == 12500000)
+        begin
+            isPushed <= 1'b0;
+            cnt  <= 32'd0;
+        end
+        else if(cnt[7:0] == 8'd0)
+        begin
+            isPushed <= (!btn)? 1'b1 : isPushed;
+            cnt <= cnt + 32'b1;
+        end
+        else 
+        begin
+            cnt <= cnt + 32'b1;
+        end
+    end
+
+end
+
+endmodule
+
+//state
+module StateMachineControl(clk,rst,btn1push,btn2push,number1,number2,led1,led2 );
+input clk;
+input rst;
+input btn1push;
+input btn2push;
+output reg [3:0] number1;
+output reg [3:0] number2;
+output reg led1;
+output reg led2;
+
+reg [3:0] state, next;
+reg [3:0] tmp1 = 4'd2, tmp2 = 4'd3;
+parameter s0 = 4'd0, s1 = 4'd1, s2 = 4'd2;
+
+
+// next state logic              
+always @(*) begin
+	if(!rst) begin
+		next = s0;
+   end
+   else begin
+		case (state)
+			s0: begin
+				if (btn1push) begin
+					if (number1 == number2) begin
+						next = s1;
+					end
+					else begin
+						next = s2;
+					end
+				end
+				else if (btn2push) begin
+					if (number1 == number2) begin
+						next = s2;
+					end
+					else begin
+						next = s1;
+					end
+				end
+				else 
+					next = s0;
+			end
+			s1: begin
+				next = s1;
+			end
+			s2: begin
+				next = s2;
+			end
+		endcase
+		case (next)
+			s0: begin
+				led1 = 0;
+				led2 = 0;
+			end
+			s1: begin
+				led1 = 1;
+				led2 = 0;
+			end
+			s2: begin
+				led1 = 0;
+				led2 = 1;
+			end
+		endcase
+	end
+end
+// state register
+always @(posedge clk or negedge rst) begin
+	if (!rst) begin
+		state <= s0;
+		tmp1 <= 3'd2;
+		tmp2 <= 3'd3;
+		number1<=4'd2;
+		number2<=4'd3;
+	end
+	else begin
+		if (state==s0) begin	
+			number1 <= (number1 + tmp1) % 4'd10;
+			number2 <= (number2 + tmp2) % 4'd10;
+			tmp1 = tmp1 + 4'd1;
+			tmp2 = tmp2 + 4'd1;
+		end
+	end
+end
+
+endmodule
+
+
+// dot matrix display
+module DotMatrixDisplay(    input clk,
+									 input [3:0] number1,
+									 input [3:0] number2,
+                            input rst,
+                            output reg [7:0] dot_row,
+                            output reg [15:0] dot_col);
+
+reg [3:0] counter;
+reg [3:0] row_count;
+
+always @ (posedge clk or negedge rst) begin
+    if(~rst)
+    begin
+        row_count<=4'd0;
+    end
+    else
+    begin
+		row_count <= row_count+4'd1;
+		case(row_count)
+			3'd0:dot_row<=8'b01111111;
+			3'd1:dot_row<=8'b10111111;
+			3'd2:dot_row<=8'b11011111;
+			3'd3:dot_row<=8'b11101111;
+			3'd4:dot_row<=8'b11110111;
+			3'd5:dot_row<=8'b11111011;
+			3'd6:dot_row<=8'b11111101;
+			3'd7:dot_row<=8'b11111110;
+			endcase
+		case(number1)
+		4'd0:
+			case(row_count)
+			3'd0:dot_col[7:0]<=8'b01111110;
+			3'd1:dot_col[7:0]<=8'b01100110;
+			3'd2:dot_col[7:0]<=8'b01100110;
+			3'd3:dot_col[7:0]<=8'b01100110;
+			3'd4:dot_col[7:0]<=8'b01100110;
+			3'd5:dot_col[7:0]<=8'b01100110;
+			3'd6:dot_col[7:0]<=8'b01100110;
+			3'd7:dot_col[7:0]<=8'b01111110;
+			endcase
+		4'd1:
+		    case(row_count)
+		   3'd0:dot_col[7:0]<=8'b00111000;
+			3'd1:dot_col[7:0]<=8'b11011000;
+			3'd2:dot_col[7:0]<=8'b11011000;
+			3'd3:dot_col[7:0]<=8'b00011000;
+			3'd4:dot_col[7:0]<=8'b00011000;
+			3'd5:dot_col[7:0]<=8'b00011000;
+			3'd6:dot_col[7:0]<=8'b00011000;
+			3'd7:dot_col[7:0]<=8'b01111110;
+			endcase
+		4'd2:
+		    case(row_count)
+		    3'd0:dot_col[7:0]<=8'b01111110;
+			3'd1:dot_col[7:0]<=8'b00000110;
+			3'd2:dot_col[7:0]<=8'b00000110;
+			3'd3:dot_col[7:0]<=8'b01111110;
+			3'd4:dot_col[7:0]<=8'b01111110;
+			3'd5:dot_col[7:0]<=8'b01100000;
+			3'd6:dot_col[7:0]<=8'b01100000;
+			3'd7:dot_col[7:0]<=8'b01111110;
+			endcase
+		4'd3:
+		    case(row_count)
+		    3'd0:dot_col[7:0]<=8'b01111110;
+			3'd1:dot_col[7:0]<=8'b00000110;
+			3'd2:dot_col[7:0]<=8'b00000110;
+			3'd3:dot_col[7:0]<=8'b01111110;
+			3'd4:dot_col[7:0]<=8'b01111110;
+			3'd5:dot_col[7:0]<=8'b00000110;
+			3'd6:dot_col[7:0]<=8'b00000110;
+			3'd7:dot_col[7:0]<=8'b01111110;
+			endcase
+		4'd4:
+		    case(row_count)
+		    3'd0:dot_col[7:0]<=8'b01100110;
+			3'd1:dot_col[7:0]<=8'b01100110;
+			3'd2:dot_col[7:0]<=8'b01100110;
+			3'd3:dot_col[7:0]<=8'b01111110;
+			3'd4:dot_col[7:0]<=8'b01111110;
+			3'd5:dot_col[7:0]<=8'b00000110;
+			3'd6:dot_col[7:0]<=8'b00000110;
+			3'd7:dot_col[7:0]<=8'b00000110;
+			endcase
+		4'd5:
+		    case(row_count)
+		    3'd0:dot_col[7:0]<=8'b01111110;
+			3'd1:dot_col[7:0]<=8'b01100000;
+			3'd2:dot_col[7:0]<=8'b01100000;
+			3'd3:dot_col[7:0]<=8'b01111110;
+			3'd4:dot_col[7:0]<=8'b01111110;
+			3'd5:dot_col[7:0]<=8'b00000110;
+			3'd6:dot_col[7:0]<=8'b00000110;
+			3'd7:dot_col[7:0]<=8'b01111110;
+			endcase
+		4'd6:
+		    case(row_count)
+		    3'd0:dot_col[7:0]<=8'b01100000;
+			3'd1:dot_col[7:0]<=8'b01100000;
+			3'd2:dot_col[7:0]<=8'b01100000;
+			3'd3:dot_col[7:0]<=8'b01111110;
+			3'd4:dot_col[7:0]<=8'b01111110;
+			3'd5:dot_col[7:0]<=8'b01100110;
+			3'd6:dot_col[7:0]<=8'b01100110;
+			3'd7:dot_col[7:0]<=8'b01111110;
+			endcase
+		4'd7:
+		    case(row_count)
+		    3'd0:dot_col[7:0]<=8'b01111110;
+			3'd1:dot_col[7:0]<=8'b01111110;
+			3'd2:dot_col[7:0]<=8'b00000110;
+			3'd3:dot_col[7:0]<=8'b00000110;
+			3'd4:dot_col[7:0]<=8'b00000110;
+			3'd5:dot_col[7:0]<=8'b00000110;
+			3'd6:dot_col[7:0]<=8'b00000110;
+			3'd7:dot_col[7:0]<=8'b00000110;
+			endcase
+		4'd8:
+		    case(row_count)
+		   3'd0:dot_col[7:0]<=8'b01111110;
+			3'd1:dot_col[7:0]<=8'b01100110;
+			3'd2:dot_col[7:0]<=8'b01100110;
+			3'd3:dot_col[7:0]<=8'b01111110;
+			3'd4:dot_col[7:0]<=8'b01111110;
+			3'd5:dot_col[7:0]<=8'b01100110;
+			3'd6:dot_col[7:0]<=8'b01100110;
+			3'd7:dot_col[7:0]<=8'b01111110;
+			endcase
+		4'd9:
+		    case(row_count)
+		   3'd0:dot_col[7:0]<=8'b01111110;
+			3'd1:dot_col[7:0]<=8'b01100110;
+			3'd2:dot_col[7:0]<=8'b01100110;
+			3'd3:dot_col[7:0]<=8'b01111110;
+			3'd4:dot_col[7:0]<=8'b01111110;
+			3'd5:dot_col[7:0]<=8'b00000110;
+			3'd6:dot_col[7:0]<=8'b00000110;
+			3'd7:dot_col[7:0]<=8'b01111110;
+			endcase
+		default:
+			case(row_count)
+			3'd0:dot_col[7:0]<=8'b01111110;
+			3'd1:dot_col[7:0]<=8'b01111110;
+			3'd2:dot_col[7:0]<=8'b01111110;
+			3'd3:dot_col[7:0]<=8'b01111110;
+			3'd4:dot_col[7:0]<=8'b01111110;
+			3'd5:dot_col[7:0]<=8'b01111110;
+			3'd6:dot_col[7:0]<=8'b01111110;
+			3'd7:dot_col[7:0]<=8'b01111110;
+			endcase
+		endcase
+			
+		case(number2)
+		4'd0:
+			case(row_count)
+			3'd0:dot_col[15:8]<=8'b01111110;
+			3'd1:dot_col[15:8]<=8'b01100110;
+			3'd2:dot_col[15:8]<=8'b01100110;
+			3'd3:dot_col[15:8]<=8'b01100110;
+			3'd4:dot_col[15:8]<=8'b01100110;
+			3'd5:dot_col[15:8]<=8'b01100110;
+			3'd6:dot_col[15:8]<=8'b01100110;
+			3'd7:dot_col[15:8]<=8'b01111110;
+			endcase
+		4'd1:
+		    case(row_count)
+		   3'd0:dot_col[15:8]<=8'b00111000;
+			3'd1:dot_col[15:8]<=8'b11011000;
+			3'd2:dot_col[15:8]<=8'b11011000;
+			3'd3:dot_col[15:8]<=8'b00011000;
+			3'd4:dot_col[15:8]<=8'b00011000;
+			3'd5:dot_col[15:8]<=8'b00011000;
+			3'd6:dot_col[15:8]<=8'b00011000;
+			3'd7:dot_col[15:8]<=8'b01111110;
+			endcase
+		4'd2:
+		    case(row_count)
+		    3'd0:dot_col[15:8]<=8'b01111110;
+			3'd1:dot_col[15:8]<=8'b00000110;
+			3'd2:dot_col[15:8]<=8'b00000110;
+			3'd3:dot_col[15:8]<=8'b01111110;
+			3'd4:dot_col[15:8]<=8'b01111110;
+			3'd5:dot_col[15:8]<=8'b01100000;
+			3'd6:dot_col[15:8]<=8'b01100000;
+			3'd7:dot_col[15:8]<=8'b01111110;
+			endcase
+		4'd3:
+		    case(row_count)
+		    3'd0:dot_col[15:8]<=8'b01111110;
+			3'd1:dot_col[15:8]<=8'b00000110;
+			3'd2:dot_col[15:8]<=8'b00000110;
+			3'd3:dot_col[15:8]<=8'b01111110;
+			3'd4:dot_col[15:8]<=8'b01111110;
+			3'd5:dot_col[15:8]<=8'b00000110;
+			3'd6:dot_col[15:8]<=8'b00000110;
+			3'd7:dot_col[15:8]<=8'b01111110;
+			endcase
+		4'd4:
+		    case(row_count)
+		    3'd0:dot_col[15:8]<=8'b01100110;
+			3'd1:dot_col[15:8]<=8'b01100110;
+			3'd2:dot_col[15:8]<=8'b01100110;
+			3'd3:dot_col[15:8]<=8'b01111110;
+			3'd4:dot_col[15:8]<=8'b01111110;
+			3'd5:dot_col[15:8]<=8'b00000110;
+			3'd6:dot_col[15:8]<=8'b00000110;
+			3'd7:dot_col[15:8]<=8'b00000110;
+			endcase
+		4'd5:
+		    case(row_count)
+		    3'd0:dot_col[15:8]<=8'b01111110;
+			3'd1:dot_col[15:8]<=8'b01100000;
+			3'd2:dot_col[15:8]<=8'b01100000;
+			3'd3:dot_col[15:8]<=8'b01111110;
+			3'd4:dot_col[15:8]<=8'b01111110;
+			3'd5:dot_col[15:8]<=8'b00000110;
+			3'd6:dot_col[15:8]<=8'b00000110;
+			3'd7:dot_col[15:8]<=8'b01111110;
+			endcase
+		4'd6:
+		    case(row_count)
+		    3'd0:dot_col[15:8]<=8'b01100000;
+			3'd1:dot_col[15:8]<=8'b01100000;
+			3'd2:dot_col[15:8]<=8'b01100000;
+			3'd3:dot_col[15:8]<=8'b01111110;
+			3'd4:dot_col[15:8]<=8'b01111110;
+			3'd5:dot_col[15:8]<=8'b01100110;
+			3'd6:dot_col[15:8]<=8'b01100110;
+			3'd7:dot_col[15:8]<=8'b01111110;
+			endcase
+		4'd7:
+		    case(row_count)
+		    3'd0:dot_col[15:8]<=8'b01111110;
+			3'd1:dot_col[15:8]<=8'b01111110;
+			3'd2:dot_col[15:8]<=8'b00000110;
+			3'd3:dot_col[15:8]<=8'b00000110;
+			3'd4:dot_col[15:8]<=8'b00000110;
+			3'd5:dot_col[15:8]<=8'b00000110;
+			3'd6:dot_col[15:8]<=8'b00000110;
+			3'd7:dot_col[15:8]<=8'b00000110;
+			endcase
+		4'd8:
+		    case(row_count)
+		   3'd0:dot_col[15:8]<=8'b01111110;
+			3'd1:dot_col[15:8]<=8'b01100110;
+			3'd2:dot_col[15:8]<=8'b01100110;
+			3'd3:dot_col[15:8]<=8'b01111110;
+			3'd4:dot_col[15:8]<=8'b01111110;
+			3'd5:dot_col[15:8]<=8'b01100110;
+			3'd6:dot_col[15:8]<=8'b01100110;
+			3'd7:dot_col[15:8]<=8'b01111110;
+			endcase
+		4'd9:
+		    case(row_count)
+		    3'd0:dot_col[15:8]<=8'b01111110;
+			3'd1:dot_col[15:8]<=8'b01100110;
+			3'd2:dot_col[15:8]<=8'b01100110;
+			3'd3:dot_col[15:8]<=8'b01111110;
+			3'd4:dot_col[15:8]<=8'b01111110;
+			3'd5:dot_col[15:8]<=8'b00000110;
+			3'd6:dot_col[15:8]<=8'b00000110;
+			3'd7:dot_col[15:8]<=8'b01111110;
+			endcase
+		default:
+			case(row_count)
+			3'd0:dot_col[15:8]<=8'b01111110;
+			3'd1:dot_col[15:8]<=8'b01111110;
+			3'd2:dot_col[15:8]<=8'b01111110;
+			3'd3:dot_col[15:8]<=8'b01111110;
+			3'd4:dot_col[15:8]<=8'b01111110;
+			3'd5:dot_col[15:8]<=8'b01111110;
+			3'd6:dot_col[15:8]<=8'b01111110;
+			3'd7:dot_col[15:8]<=8'b01111110;
+			endcase
+		endcase
+    end
+end
+
+endmodule
+
+
+//gm2
+module checkkeypad (clk,rst,keypadRow,keypadCol,keypadBuf);  // output keypad buffer
+	input clk,rst;
+	input [3:0]keypadCol;
+	output reg[3:0]keypadRow;
+	output reg [4:0]keypadBuf;
+	reg [31:0]keypadDelay;
+	
+	always @(posedge clk or negedge rst)
+	begin 
+		if (!rst)
+		begin
+			keypadRow <= 4'b1110;
+			keypadBuf <= 5'b11111;
+			keypadDelay <= 31'd0;
+		end
+		else
+		begin
+			if (keypadDelay == 32'd250000) 
+			begin 
+				keypadDelay <= 31'd0;
+				case ({keypadRow, keypadCol})
+					8'b1110_1110: keypadBuf <= 5'h7;
+					8'b1110_1101: keypadBuf <= 5'h4;
+					8'b1110_1011: keypadBuf <= 5'h1;
+					8'b1110_0111: keypadBuf <= 5'h0;
+					8'b1101_1110: keypadBuf <= 5'h8;
+					8'b1101_1101: keypadBuf <= 5'h5;
+					8'b1101_1011: keypadBuf <= 5'h2;
+					8'b1101_0111: keypadBuf <= 5'ha;
+					8'b1011_1110: keypadBuf <= 5'h9;
+					8'b1011_1101: keypadBuf <= 5'h6;
+					8'b1011_1011: keypadBuf <= 5'h3;
+					8'b1011_0111: keypadBuf <= 5'hb;
+					8'b0111_1110: keypadBuf <= 5'hc;
+					8'b0111_1101: keypadBuf <= 5'hd;
+					8'b0111_1011: keypadBuf <= 5'he;
+					8'b0111_0111: keypadBuf <= 5'hf;
+					default: keypadBuf <= keypadBuf;
+				endcase
+				case (keypadRow)
+					4'b1110: keypadRow <= 4'b1101;
+					4'b1101: keypadRow <= 4'b1011;
+					4'b1011: keypadRow <= 4'b0111;
+					4'b0111: keypadRow <= 4'b1110;
+					default: keypadRow <= 4'b1110;
+				endcase
+			end
+			else
+				keypadDelay <= keypadDelay + 1'b1;
+		end
+	end
+endmodule
+
+
+module SevenSegmentDisplay( input [3:0] number,
+                            output reg [6:0] seven);
+
+always@(*) begin
+   case(number)
+		4'd0:seven=7'b1000000;
+		4'd1:seven=7'b1111001;
+		4'd2:seven=7'b0100100;
+		4'd3:seven=7'b0110000;
+		4'd4:seven=7'b0011001;
+		4'd5:seven=7'b0010010;
+		4'd6:seven=7'b0000010;
+		4'd7:seven=7'b1111000;
+		4'd8:seven=7'b0000000;
+		4'd9:seven=7'b0010000;
+	endcase
+end
+endmodule
+
+
+
+module clk_divide(clk, rst, div_clk, frequency);
+input clk, rst;
+input [31:0] frequency;
+output div_clk;
+
+reg div_clk;
+reg [31:0] count;
+
+always@(posedge clk)
+begin
+	if(!rst)
+	begin
+		count <= 32'd0;
+		div_clk <= 1'b0;
+	end
+	else
+	begin
+		if(count==frequency)
+		begin
+			count <= 32'd0;
+			div_clk <= ~div_clk;
+		end
+		else
+		begin
+			count <= count + 32'd1;
+		end
+	end
+end
+
+endmodule
+
